@@ -12,8 +12,12 @@ body {
 	animation: fadeIn 1s;
 }
 
-.name {
+.full-name, .short-name {
 	font-size: 25px;
+}
+
+.short-name {
+	display: none;
 }
 
 .instagram-button {
@@ -42,4 +46,13 @@ a {
 
 .instagram-button, .gallery-button, .home-button {
 	float: right;
+}
+
+@media screen and (max-width: 575px) {	
+	.full-name {
+		display: none;
+	}
+	.short-name {
+		display: inline-block;
+	}
 }
