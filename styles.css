@@ -1,0 +1,45 @@
+body {
+	font-family: 'Poppins', sans-serif;
+	margin: 0px;
+	background-color: white;
+}
+
+.navbar {
+	font-size: 14px;
+	list-style-type: none;
+	margin: 0px;
+	padding: 20px;
+	animation: fadeIn 2s;
+}
+
+.name {
+	font-size: 25px;
+}
+
+.instagram-button {
+	font-size: 20px;
+	min-width: 20px;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+li {
+	display: inline-block;
+	padding: 10px;
+	text-decoration: none;
+	color: black;
+	line-height: 30px;
+}
+
+a {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+.instagram-button, .gallery-button, .home-button {
+	float: right;
+}
