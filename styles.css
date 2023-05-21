@@ -1,19 +1,21 @@
 body {
 	font-family: 'Poppins', sans-serif;
 	margin: 0px;
-	background-color: white;
+	background-color: whitesmoke;
 }
 
 .navbar {
 	font-size: 14px;
 	list-style-type: none;
-	margin: 0px;
-	padding: 20px;
+	margin: 40px;
+	padding: 0px;
 	animation: fadeIn 1s;
 }
 
 .full-name, .short-name {
 	font-size: 25px;
+	padding: 0px;
+	letter-spacing: 1px;
 }
 
 .short-name {
@@ -26,33 +28,91 @@ body {
 }
 
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+	0% { opacity: 0; }
+	100% { opacity: 1; }
 }
 
 li {
 	display: inline-block;
-	padding: 10px;
+	margin: 10px;
 	text-decoration: none;
 	color: black;
 	line-height: 30px;
 }
 
 a {
-	display: block;
 	text-decoration: none;
 	color: inherit;
 }
 
 .instagram-button, .gallery-button, .home-button {
 	float: right;
+	vertical-align: center;
 }
 
-@media screen and (max-width: 575px) {	
+#albums {
+	margin: 0px 50px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	column-gap: 50px;
+	row-gap: 50px;
+	padding-bottom: 50px;
+}
+
+#albums img {
+	width: 100%;
+	aspect-ratio: 1.0;
+	object-fit: cover;
+	border-radius:10px;
+}
+
+.cover {
+  position: relative;
+  text-align: center;
+  color: black;
+}
+
+.cover .description {
+	display: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: transparent;
+}
+
+.description {
+	width: 75%;
+}
+
+.description h2 {
+	letter-spacing: 2px;
+}
+
+.cover:hover img {
+	opacity: 0.2;
+	transition: .25s ease;
+}
+
+.cover:hover .description {
+	color: black;
+	opacity: 1.0;
+}
+
+@media screen and (max-width: 950px) {	
+	#albums {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media screen and (max-width: 650px) {	
 	.full-name {
 		display: none;
 	}
 	.short-name {
 		display: inline-block;
+	}
+	#albums {
+		grid-template-columns: 1fr;
 	}
 }
