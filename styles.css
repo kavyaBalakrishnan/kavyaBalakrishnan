@@ -13,7 +13,7 @@ body {
 }
 
 .full-name, .short-name {
-	font-size: 25px;
+	font-size: 30px;
 	padding: 0px;
 	letter-spacing: 1px;
 }
@@ -66,13 +66,13 @@ a {
 	border-radius:10px;
 }
 
-.cover {
+.album-cover {
   position: relative;
   text-align: center;
   color: black;
 }
 
-.cover .description {
+.album-cover .album-description {
 	display: hidden;
   position: absolute;
   top: 50%;
@@ -81,20 +81,20 @@ a {
   color: transparent;
 }
 
-.description {
+.album-description {
 	width: 75%;
 }
 
-.description h2 {
+.album-description h2 {
 	letter-spacing: 2px;
 }
 
-.cover:hover img {
+.album-cover:hover img {
 	opacity: 0.2;
 	transition: .25s ease;
 }
 
-.cover:hover .description {
+.album-cover:hover .album-description {
 	color: black;
 	opacity: 1.0;
 }

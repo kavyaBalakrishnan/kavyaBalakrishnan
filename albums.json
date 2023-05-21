@@ -1,0 +1,99 @@
+{
+	"albums": [
+		{
+			"name": "Italy",
+			"img": "photos/IMG_0222.jpg",
+			"description": "March-April 2023",
+			"photos": {
+				"img": {
+					"url": "photos/IMG_0222.jpg",
+					"description": "Capri"
+				},
+				"img": {
+					"url": "photos/IMG_0243.jpg",
+					"description": "Faraglioni Rocks, Capri"
+				},
+				"img": {
+					"url": "photos/IMG_0364.jpg",
+					"description": "The Natural Arch, Capri"
+				}
+			}
+		},
+		{
+			"name": "Italy",
+			"img": "photos/IMG_0243.jpg",
+			"description": "March-April 2023",
+			"photos": {
+				"img": {
+					"url": "photos/IMG_0222.jpg",
+					"description": "Capri"
+				},
+				"img": {
+					"url": "photos/IMG_0243.jpg",
+					"description": "Faraglioni Rocks, Capri"
+				},
+				"img": {
+					"url": "photos/IMG_0364.jpg",
+					"description": "The Natural Arch, Capri"
+				}
+			}
+		},
+		{
+			"name": "Italy",
+			"img": "photos/IMG_0364.jpg",
+			"description": "March-April 2023",
+			"photos": {
+				"img": {
+					"url": "photos/IMG_0222.jpg",
+					"description": "Capri"
+				},
+				"img": {
+					"url": "photos/IMG_0243.jpg",
+					"description": "Faraglioni Rocks, Capri"
+				},
+				"img": {
+					"url": "photos/IMG_0364.jpg",
+					"description": "The Natural Arch, Capri"
+				}
+			}
+		},
+		{
+			"name": "Italy",
+			"img": "photos/IMG_0243.jpg",
+			"description": "March-April 2023",
+			"photos": {
+				"img": {
+					"url": "photos/IMG_0222.jpg",
+					"description": "Capri"
+				},
+				"img": {
+					"url": "photos/IMG_0243.jpg",
+					"description": "Faraglioni Rocks, Capri"
+				},
+				"img": {
+					"url": "photos/IMG_0364.jpg",
+					"description": "The Natural Arch, Capri"
+				}
+			}
+		},
+		{
+			"name": "Italy",
+			"img": "photos/IMG_0222.jpg",
+			"description": "March-April 2023",
+			"photos": {
+				"img": {
+					"url": "photos/IMG_0222.jpg",
+					"description": "Capri"
+				},
+				"img": {
+					"url": "photos/IMG_0243.jpg",
+					"description": "Faraglioni Rocks, Capri"
+				},
+				"img": {
+					"url": "photos/IMG_0364.jpg",
+					"description": "The Natural Arch, Capri"
+				}
+			}
+		}
+	]
+}
