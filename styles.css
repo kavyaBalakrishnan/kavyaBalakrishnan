@@ -64,6 +64,7 @@ a {
 	aspect-ratio: 1.0;
 	object-fit: cover;
 	border-radius:10px;
+	display: block;
 }
 
 .album-cover {
@@ -100,9 +101,30 @@ a {
 	opacity: 1.0;
 }
 
+.grid {
+	margin: 0px 50px;
+	padding-bottom: 50px;
+}
+
+.grid img {
+	width: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.grid-item {
+	width: 32%;
+	margin-bottom: 2%;
+}
+
+.gutter-sizer { width: 2%; }
+
 @media screen and (max-width: 950px) {	
 	#albums {
 		grid-template-columns: 1fr 1fr;
+	}
+	.grid-item {
+		width: 48%;
 	}
 }
 
@@ -115,5 +137,8 @@ a {
 	}
 	#albums {
 		grid-template-columns: 1fr;
+	}
+	.grid-item {
+		width: 100%;
 	}
 }
