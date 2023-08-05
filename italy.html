@@ -57,6 +57,13 @@
 			<img src="photos/IMG_0222.jpg"/>
 		</div>
 	</div>
+	<div class="modal">
+		<span class="close"><i class="fas fa-times"></i></span>
+		<div class="modalContent">
+			<img class="modalImg" src="">
+			<span class="modalText">Sample Text</span>
+		</div>
+	</div>
 	<script type="text/javascript">
 		var $grid = $('.grid').masonry({
 			itemSelector: '.grid-item',
@@ -64,6 +71,36 @@
 		});
 		$grid.imagesLoaded().progress( function() {
 			$grid.masonry('layout');
+		});
+	</script>
+	<script type="text/javascript">
+		const images = document.querySelectorAll(".grid img");
+		const modal = document.querySelector(".modal");
+		const modalImg = document.querySelector(".modalImg");
+		const modalText = document.querySelector(".modalText");
+		const close = document.querySelector(".close");
+
+		images.forEach((image) => {
+			image.addEventListener("click", () => {
+				modalImg.src = image.src
+				// modalText.innerHTML = 
+				modal.classList.add("appear");
+
+				modal.addEventListener("click", () => {
+					modal.classList.remove("appear");
+				});
+
+				modalImg.addEventListener('click', (e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					e.stopImmediatePropagation();
+					return false;
+				});
+
+				close.addEventListener("click", () => {
+					modal.classList.remove("appear");
+				});
+			});
 		});
 	</script>
 </body>

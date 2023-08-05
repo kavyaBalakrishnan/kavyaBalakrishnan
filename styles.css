@@ -110,6 +110,13 @@ a {
 	width: 100%;
 	object-fit: cover;
 	display: block;
+	transition: 0.3s all ease;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.grid img:hover {
+	transform: scale(0.95);
 }
 
 .grid-item {
@@ -118,6 +125,62 @@ a {
 }
 
 .gutter-sizer { width: 2%; }
+
+.modal {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+	color: white;
+	z-index: 1;
+	overflow: auto;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.15s ease-out, width 0s linear 0.15s, height 0s linear 0.15s;
+}
+
+.modalContent {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.modalImg {
+	margin-top: 20px;
+	max-width: 80%;
+	max-height: 80%;
+	image-rendering: crisp-edges;
+	border-radius: 5px;
+}
+
+.modalText {
+	margin-top: 20px;
+}
+
+.close {
+	position: absolute;
+	top: 15px;
+	right: 30px;
+	font-size: 30px;
+	cursor: pointer;
+}
+
+.close:hover {
+	transform: scale(1.1);
+}
+
+.modal.appear {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.modal.appear .modalImg, .modal.appear .modalText {
+	transition: opacity 0.15s ease-out;
+}
 
 @media screen and (max-width: 950px) {	
 	#albums {
