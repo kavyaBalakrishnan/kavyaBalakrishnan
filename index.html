@@ -3,26 +3,13 @@
 <head>
 	<title>Kavya Balakrishnan</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.fontawesome.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com">
-	<link rel="stylesheet" href="styles.css">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com;">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-	<script src="https://kit.fontawesome.com/7913c79751.js" crossorigin="anonymous"></script>
-	<!-- Load header -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#header").load("header.html");
-		});
-	</script>
+	<link rel="stylesheet" href="node_modules/fontawesome-free/css/fontawesome.css">
+	<link rel="stylesheet" href="node_modules/fontawesome-free/css/brands.css">
+	<link rel="stylesheet" href="styles.css">
 	<script src="node_modules/jquery/dist/jquery.min.js"></script>
-	<!-- Parse json and display albums -->
-	<script type="text/javascript">
-		$.getJSON('albums.json', function(data) {
-			$.each(data.albums, function(i, album) {
-				var albumCover = "<div class=\"album-cover\"><a href=\""+ album.name +"\">" + "<div class=\"album-description\">" + "<h2>" + album.name + "</h2>" + "<p>" + album.description + "</p>" + "</div>" + "<img src=\"" + album.img + "\"/>" + "</a></div>"
-				$(albumCover).appendTo("#albums")
-			});
-		});
-	</script>
+	<script src="home.js"></script>
 </head>
 <body>
 	<div id="header"></div>
