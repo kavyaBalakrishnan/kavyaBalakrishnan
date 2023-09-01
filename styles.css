@@ -4,10 +4,6 @@ body {
 	background-color: whitesmoke;
 }
 
-img {
-	image-rendering: crisp-edges;
-}
-
 .navbar {
 	font-size: 16px;
 	list-style-type: none;
@@ -158,6 +154,7 @@ a {
 	max-width: 80%;
 	max-height: 80%;
 	border-radius: 5px;
+	image-rendering: crisp-edges;
 }
 
 .modalText {
