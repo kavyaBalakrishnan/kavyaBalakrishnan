@@ -1,3 +1,5 @@
+localStorage.clear();
+
 $(function(){
     $("#header").load("header.html");
 });
@@ -5,8 +7,18 @@ $(function(){
 $(function() {
     $.getJSON('albums.json', function(data) {
         $.each(data.albums, function(i, album) {
-            var albumCover = "<div class=\"album-cover\"><a href=\""+ album.name +"\">" + "<div class=\"album-description\">" + "<h2>" + album.name + "</h2>" + "<p>" + album.description + "</p>" + "</div>" + "<img src=\"" + album.img + "\"/>" + "</a></div>"
-            $(albumCover).appendTo("#albums")
+            var element = document.createElement('div');
+            element.className = 'album-cover';
+
+            elementStyling = "<a href=\""+ album.name +"\">" + "<img src=\"" + album.coverImg + "\"/>" + "<div class=\"album-description\">" + "<h2>" + album.name + "</h2>" + "</div>" + "</a>";
+            element.innerHTML = elementStyling;
+
+            $(element).appendTo("#albums");
+
+            element.addEventListener("click", function() {
+                localStorage.setItem("currentAlbumSelection", album.name);
+                localStorage.setItem(album.name, JSON.stringify(album.photos));
+            });
         });
     });
 });
