@@ -55,6 +55,11 @@ h2 {
 	text-align: center;
 	font-size: 50px;
 	text-transform: uppercase;
+	animation: fadeIn 1s;
+}
+
+#return {
+	animation: fadeIn 1s;
 }
 
 @keyframes fadeIn {
@@ -94,6 +99,7 @@ a {
 	object-fit: cover;
 	border-radius:7px;
 	display: block;
+	transition: 0.3s all ease;
 }
 
 .album-cover {
@@ -101,6 +107,7 @@ a {
 	text-align: center;
 	color: black;
 	animation: fadeIn 1s;
+	cursor: pointer;
 }
 
 .album-description {
@@ -108,13 +115,7 @@ a {
 }
 
 .album-cover:hover img {
-	opacity: 0.5;
-	transition: .5s ease;
-}
-
-.album-cover:hover .album-description {
-	color: black;
-	opacity: 1.0;
+	transform: scale(0.95);
 }
 
 .grid {
