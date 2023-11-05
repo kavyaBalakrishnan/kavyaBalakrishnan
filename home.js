@@ -37,7 +37,7 @@ $(function(){
                 document.getElementById("albums").style.display = "none"
                 
                 $("#selectedAlbumView").load("grid.html", function() {
-                    document.getElementById("subheader").innerHTML = "<h2>" + selectedAlbumData.name + "<\/h2>"
+                    document.getElementById("selected-album-name").innerText = selectedAlbumData.name
                     populatePhotoGrid(selectedAlbumData.photos)
                     setupMasonry()
                     setupModals()
