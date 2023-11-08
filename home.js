@@ -14,7 +14,7 @@ $(function(){
                 var element = document.createElement('div');
                 element.className = 'album-cover';
                 
-                elementStyling = "<img src=\"" + album.coverImg + "\"/>" + "<div class=\"album-description\">" + "<h2>" + album.name + "</h2>" + "</div>";
+                elementStyling = "<img src=\"" + album.coverImg + "\"/>" + "<h2>" + album.name + "</h2>";
                 element.innerHTML = elementStyling;
                 
                 $(element).appendTo("#albums");

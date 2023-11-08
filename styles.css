@@ -16,20 +16,22 @@ h2 {
 	100% { opacity: 1; }
 }
 
+/* ------ HEADER ------ */
+
 .navbar {
 	font-size: 14px;
+	line-height: 30px;
 	list-style-type: none;
 	margin: 2% 4% 0% 4%;
 	padding: 0px;
 	animation: fadeIn 1s;
 }
 
-li {
+.navbar li {
 	display: inline-block;
-	margin: 10px 1.5%;
 	text-decoration: none;
 	color: black;
-	line-height: 30px;
+	vertical-align: middle;
 }
 
 li:not(#selected-album-name, #name):hover {
@@ -38,9 +40,7 @@ li:not(#selected-album-name, #name):hover {
 
 #name {
 	font-family: 'Sacramento', cursive;
-	margin-left: 0px;
 	font-size: 36px;
-	padding: 0px;
 }
 
 #selected-album-name {
@@ -49,8 +49,6 @@ li:not(#selected-album-name, #name):hover {
 	position: absolute;
 	text-transform: uppercase;
 	text-align: center;
-	font-size: 14px;
-	font-weight: 400;
 	letter-spacing: 2px;
 	text-decoration: underline;
 	text-underline-offset: 5px;
@@ -62,18 +60,20 @@ li:not(#selected-album-name, #name):hover {
 #instagram-button {
 	font-size: 22px;
 	min-width: 22px;
-	margin-right: 0px;
 }
 
 #instagram-button, #gallery-button, #home-button {
 	float: right;
 	vertical-align: center;
+	margin-left: 2.5vw;
 }
 
 a {
 	text-decoration: none;
 	color: inherit;
 }
+
+/* ------ ALBUMS ------ */
 
 #albums {
 	display: grid;
@@ -100,13 +100,11 @@ a {
 	cursor: pointer;
 }
 
-.album-description {
-	width: 100%;
-}
-
 .album-cover:hover img {
 	transform: scale(0.95);
 }
+
+/* ------ GRID ------ */
 
 .grid {
 	margin: 2% 4% 4% 4%;
@@ -131,6 +129,8 @@ a {
 }
 
 .gutter-sizer { width: 2%; }
+
+/* ------ MODAL ------ */
 
 .modal {
 	position: fixed;
