@@ -21,8 +21,9 @@ h2 {
 .navbar {
 	font-size: 14px;
 	list-style-type: none;
-	margin: 2% 4% 0% 4%;
-	padding: 0px;
+	margin: 0px;
+	padding: 2% 4% 2% 4%;
+	box-sizing: border-box;
 	animation: fadeIn 1s;
 	display: block;
 }
@@ -59,6 +60,7 @@ h2 {
 
 .collapsable-nav a {
 	margin-left: 2.5vw;
+	text-transform: uppercase;
 }
 
 li:not(#name, #selected-album-name):hover {
@@ -100,7 +102,7 @@ a {
 	grid-template-columns: 1fr 1fr 1fr;
 	column-gap: 4%;
 	row-gap: 3%;
-	margin: 2% 4% 4% 4%;
+	margin: 0% 4% 4% 4%;
 }
 
 #albums img {
@@ -128,7 +130,7 @@ a {
 
 .grid {
 	position: absolute;
-	margin: 2% 4% 4% 4%;
+	margin: 0% 4% 4% 4%;
 }
 
 .grid img {
@@ -230,24 +232,60 @@ a {
 		transform: translateY(-6.5px) rotate(-225deg)
 	}
 
+	.navbar.expand {
+		background: black;
+		position: sticky;
+		z-index: 100;
+		display: block;
+		justify-content: space-between;
+		width: 100vw;
+		transition: ease-in 0.15s;
+	}
+
+	.navbar {
+		transition: ease-out 0.5s;
+	}
+
+	.navbar.expand li:not(#selected-album-name) {
+		color: whitesmoke;
+		transition: ease-in 0.15s;
+	}
+
+	.navbar.expand .bar {
+		background-color: whitesmoke;
+		transition: ease-in 0.15s;
+	}
+
 	.collapsable-nav.expand {
 		position: absolute;
 		display: block;
-		height: 100vh;
-		clear: right;
 		z-index: 100;
-		width: 100%;
+		width: 100vw;
+		left: 0px;
 		margin: 2% 0%;
 		padding: 0;
+		border-bottom: solid gainsboro 2px;
+		background-color: whitesmoke;
 	}
 
 	.collapsable-nav.expand li {
+		border-top: solid gainsboro 1px;
 		width: 100%;
-		padding: 20px 0px;
+		left: 0px;
+		clear: right;
+		padding: 10px 0px;
 		text-align: center;
 		vertical-align: middle;
-		background-color: yellowgreen;
-		box-sizing: border-box;
+		color: black !important;
+	}
+
+	.collapsable-nav.expand a {
+		margin: 0px;
+	}
+
+	li:not(#name, #selected-album-name, .menu-button):hover {
+		opacity: 0.4;
+		transition: 0.05s;
 	}
 
 	.collapsable-nav {
