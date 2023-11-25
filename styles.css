@@ -24,9 +24,7 @@ h2 {
 	margin: 2% 4% 0% 4%;
 	padding: 0px;
 	animation: fadeIn 1s;
-	display: flex;
-  	align-items: center;
-	justify-content: space-between;
+	display: block;
 }
 
 .navbar li:not(.menu-button) {
@@ -40,6 +38,10 @@ h2 {
 
 .menu-button {
 	display: none;
+}
+
+#menu-icon {
+	transform: translateY(50%)
 }
 
 .bar {
@@ -59,7 +61,7 @@ h2 {
 	margin-left: 2.5vw;
 }
 
-li:not(#name, #selected-album-name, .menu-button):hover {
+li:not(#name, #selected-album-name):hover {
 	opacity: 0.6;
 }
 
@@ -81,8 +83,8 @@ li:not(#name, #selected-album-name, .menu-button):hover {
 }
 
 #instagram-button i {
-	font-size: 22px;
-	min-width: 22px;
+	font-size: 20px;
+	min-width: 20px;
 	vertical-align: middle;
 }
 
