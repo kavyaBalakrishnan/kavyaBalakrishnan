@@ -1,5 +1,13 @@
 $(function(){
-    $("#header").load("header.html");
+    $("#header").load("header.html", function() {
+        const menuButton = document.querySelector(".menu-button");
+        const collapsableNav = document.querySelector(".collapsable-nav")
+
+        menuButton.addEventListener("click", function() {
+            menuButton.classList.toggle("animate");
+            collapsableNav.classList.toggle("expand");
+        });
+    });
 });
 
 $(function(){

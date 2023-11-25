@@ -20,21 +20,46 @@ h2 {
 
 .navbar {
 	font-size: 14px;
-	line-height: 30px;
 	list-style-type: none;
 	margin: 2% 4% 0% 4%;
 	padding: 0px;
 	animation: fadeIn 1s;
+	display: flex;
+  	align-items: center;
+	justify-content: space-between;
 }
 
-.navbar li {
+.navbar li:not(.menu-button) {
+	line-height: 40px;
+	height: 40px;
 	display: inline-block;
 	text-decoration: none;
 	color: black;
-	vertical-align: middle;
+	box-sizing: content-box;
 }
 
-li:not(#selected-album-name, #name):hover {
+.menu-button {
+	display: none;
+}
+
+.bar {
+	display: block;
+	width: 21px;
+	height: 1.5px;
+	transition: all 0.3s ease-in-out;
+	background-color: black;
+	margin: 5px auto;
+}
+
+.collapsable-nav, .menu-button {
+	float: right;
+}
+
+.collapsable-nav a {
+	margin-left: 2.5vw;
+}
+
+li:not(#name, #selected-album-name, .menu-button):hover {
 	opacity: 0.6;
 }
 
@@ -53,19 +78,12 @@ li:not(#selected-album-name, #name):hover {
 	text-decoration: underline;
 	text-underline-offset: 5px;
 	z-index: -1;
-	margin-left: 0;
-	margin-right: 0;
 }
 
-#instagram-button {
+#instagram-button i {
 	font-size: 22px;
 	min-width: 22px;
-}
-
-#instagram-button, #gallery-button, #home-button {
-	float: right;
-	vertical-align: center;
-	margin-left: 2.5vw;
+	vertical-align: middle;
 }
 
 a {
@@ -107,6 +125,7 @@ a {
 /* ------ GRID ------ */
 
 .grid {
+	position: absolute;
 	margin: 2% 4% 4% 4%;
 }
 
@@ -188,6 +207,54 @@ a {
 	transition: opacity 0.15s ease-out;
 }
 
+/* ------ RESPONSIVE-NAV ------ */
+
+@media screen and (max-width: 1200px) {
+	.menu-button {
+		display: block;
+		animation: fadeIn 0.5s;
+		cursor: pointer;
+	}
+
+	.menu-button.animate .bar:nth-child(2) {
+		opacity: 0;
+	}
+
+	.menu-button.animate .bar:nth-child(1) {
+		transform: translateY(6.5px) rotate(225deg);
+	}
+
+	.menu-button.animate .bar:nth-child(3) {
+		transform: translateY(-6.5px) rotate(-225deg)
+	}
+
+	.collapsable-nav.expand {
+		position: absolute;
+		display: block;
+		height: 100vh;
+		clear: right;
+		z-index: 100;
+		width: 100%;
+		margin: 2% 0%;
+		padding: 0;
+	}
+
+	.collapsable-nav.expand li {
+		width: 100%;
+		padding: 20px 0px;
+		text-align: center;
+		vertical-align: middle;
+		background-color: yellowgreen;
+		box-sizing: border-box;
+	}
+
+	.collapsable-nav {
+		display: none;
+	}
+}
+
+/* ------ 2-COLUMN GRID ------ */
+
 @media screen and (max-width: 950px) {	
 	#albums {
 		grid-template-columns: 1fr 1fr;
@@ -205,6 +272,8 @@ a {
 		max-width: 95%;
 	}
 }
+
+/* ------ SINGLE-COLUMN GRID ------ */
 
 @media screen and (max-width: 650px) {	
 	#albums {
