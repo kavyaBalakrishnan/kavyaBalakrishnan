@@ -232,26 +232,24 @@ a {
 		transform: translateY(-6.5px) rotate(-225deg)
 	}
 
-	.navbar.expand {
-		background: black;
+	#header {
+		transition: ease-out 0.3s;
+	}
+
+	#header.expand {
 		position: sticky;
+		top: 0px;
 		z-index: 100;
-		display: block;
-		justify-content: space-between;
-		width: 100vw;
 		transition: ease-in 0.15s;
+		background-color: black;
 	}
 
-	.navbar {
-		transition: ease-out 0.5s;
-	}
-
-	.navbar.expand li:not(#selected-album-name) {
+	#header.expand li:not(#selected-album-name) {
 		color: whitesmoke;
 		transition: ease-in 0.15s;
 	}
 
-	.navbar.expand .bar {
+	#header.expand .bar {
 		background-color: whitesmoke;
 		transition: ease-in 0.15s;
 	}
@@ -263,7 +261,7 @@ a {
 		width: 100vw;
 		left: 0px;
 		margin: 2% 0%;
-		padding: 0;
+		padding: 0px;
 		border-bottom: solid gainsboro 2px;
 		background-color: whitesmoke;
 	}
@@ -272,7 +270,6 @@ a {
 		border-top: solid gainsboro 1px;
 		width: 100%;
 		left: 0px;
-		clear: right;
 		padding: 10px 0px;
 		text-align: center;
 		vertical-align: middle;
