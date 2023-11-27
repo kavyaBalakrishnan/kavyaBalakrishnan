@@ -11,7 +11,7 @@ body {
 	background-color: var(--defaultBgColor);
 }
 h2 {
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: 400;
 	letter-spacing: 2px;
 	text-transform: uppercase;
@@ -23,7 +23,7 @@ h2 {
 
 /* ------ HEADER ------ */
 .navbar {
-	font-size: 14px;
+	font-size: 18px;
 	list-style-type: none;
 	margin: 0px;
 	padding: 2% 4% 2% 4%;
@@ -65,7 +65,7 @@ li:not(#name, #selected-album-name, .menu-button):hover {
 }
 #name {
 	font-family: 'Sacramento', cursive;
-	font-size: 36px;
+	font-size: 45px;
 }
 #selected-album-name {
 	width: 100%;
@@ -79,8 +79,8 @@ li:not(#name, #selected-album-name, .menu-button):hover {
 	z-index: -1;
 }
 #instagram-button i {
-	font-size: 20px;
-	min-width: 20px;
+	font-size: 25px;
+	min-width: 25px;
 	vertical-align: middle;
 }
 a {
@@ -144,7 +144,7 @@ a {
 	width: 100%;
 	top: 0;
 	left: 0;
-	background-color: rgba(0, 0, 0, 0.85);
+	background-color: rgba(0, 0, 0, 0.90);
 	color: var(--defaultBgColor);
 	z-index: 1;
 	overflow: auto;
@@ -168,12 +168,13 @@ a {
 }
 .modalText {
 	margin-top: 10px;
+	font-size: 18px;
 }
 .close {
 	position: absolute;
 	top: 15px;
-	right: 30px;
-	font-size: 30px;
+	right: 35px;
+	font-size: 35px;
 	cursor: pointer;
 }
 .close:hover {
@@ -185,6 +186,30 @@ a {
 }
 .modal.appear .modalImg, .modal.appear .modalText {
 	transition: opacity 0.15s ease-out;
+}
+
+/* ------ WIDE VIEW ------ */
+@media screen and (max-width: 1800px) {
+	h2 {
+		font-size: 20px;
+	}
+	.navbar {
+		font-size: 14px;
+	}
+	#name {
+		font-size: 36px;
+	}
+	#instagram-button i {
+		font-size: 20px;
+		min-width: 20px;
+	}
+	.modalText {
+		font-size: 16px;
+	}
+	.close {
+		right: 30px;
+		font-size: 30px;
+	}
 }
 
 /* ------ RESPONSIVE-NAV ------ */
