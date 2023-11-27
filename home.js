@@ -2,19 +2,14 @@ $(function(){
     $("#header").load("header.html", function() {
         const menuButton = document.querySelector(".menu-button");
         const header = document.querySelector("#header");
-        const collapsableNav = document.querySelector(".collapsable-nav")
-
+        
         menuButton.addEventListener("click", function() {
-            menuButton.classList.toggle("animate");
             header.classList.toggle("expand");
-            collapsableNav.classList.toggle("expand");
         });
-
+        
         document.addEventListener('click', function (e) {
             if (header.classList.contains("expand") && !header.contains(e.target)) {
-                menuButton.classList.remove("animate");
                 header.classList.remove("expand");
-                collapsableNav.classList.remove("expand");
             }
         });
     });

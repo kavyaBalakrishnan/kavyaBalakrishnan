@@ -194,14 +194,11 @@ a {
 		animation: fadeIn 0.5s;
 		cursor: pointer;
 	}
-	.menu-button.animate .bar:nth-child(2) {
-		opacity: 0;
+	.collapsable-nav {
+		display: none;
 	}
-	.menu-button.animate .bar:nth-child(1) {
-		transform: translateY(7px) rotate(225deg);
-	}
-	.menu-button.animate .bar:nth-child(3) {
-		transform: translateY(-7px) rotate(-225deg)
+	#selected-album-name {
+		transition: ease-in 0.3s;
 	}
 	#header.expand {
 		position: sticky;
@@ -209,14 +206,20 @@ a {
 		z-index: 100;
 		background-color: var(--defaultBgColor);
 	}
-	#header #selected-album-name {
-		transition: ease-in 0.3s;
-	}
-	#header.expand #selected-album-name {
+	.expand #selected-album-name {
 		color: var(--defaultBgColor);
 		transition: ease-out 0.15s;
 	}
-	.collapsable-nav.expand {
+	.expand .bar:nth-child(2) {
+		opacity: 0;
+	}
+	.expand .bar:nth-child(1) {
+		transform: translateY(7px) rotate(225deg);
+	}
+	.expand .bar:nth-child(3) {
+		transform: translateY(-7px) rotate(-225deg)
+	}
+	.expand .collapsable-nav {
 		position: absolute;
 		display: block;
 		width: 100%;
@@ -226,7 +229,7 @@ a {
 		box-shadow: 0 6px 6px -6px var(--defaultTextColor);
 		background-color: var(--defaultBgColor);
 	}
-	.collapsable-nav.expand li {
+	.expand .collapsable-nav li {
 		border-top: solid var(--borderColor) 1px;
 		width: 100%;
 		left: 0px;
@@ -235,15 +238,12 @@ a {
 		vertical-align: middle;
 		color: var(--defaultTextColor) !important;
 	}
-	.collapsable-nav.expand li:hover {
+	.expand .collapsable-nav li:hover {
 		opacity: 0.4;
 		transition: 0.05s;
 	}
-	.collapsable-nav.expand a {
+	.expand .collapsable-nav a {
 		margin: 0px;
-	}
-	.collapsable-nav {
-		display: none;
 	}
 }
 
@@ -292,7 +292,7 @@ a {
 	#selected-album-name {
 		font-size: 12px;
 	}
-	.collapsable-nav.expand {
+	#header.expand .collapsable-nav {
 		margin-top: 4%;
 	}
 }
