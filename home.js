@@ -9,6 +9,14 @@ $(function(){
             header.classList.toggle("expand");
             collapsableNav.classList.toggle("expand");
         });
+
+        document.addEventListener('click', function (e) {
+            if (header.classList.contains("expand") && !header.contains(e.target)) {
+                menuButton.classList.remove("animate");
+                header.classList.remove("expand");
+                collapsableNav.classList.remove("expand");
+            }
+        });
     });
 });
 
