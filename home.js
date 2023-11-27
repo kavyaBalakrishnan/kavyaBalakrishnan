@@ -12,6 +12,10 @@ $(function(){
                 header.classList.remove("expand");
             }
         });
+        
+        addEventListener('resize', function (e) {
+            header.classList.remove("expand");
+        });
     });
 });
 
