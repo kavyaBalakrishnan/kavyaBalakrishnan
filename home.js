@@ -17,16 +17,20 @@ $(function(){
             header.classList.remove("expand");
         });
         
+        // partially sticky header
         let prevScrollPos = window.scrollY;
         window.onscroll = function() {
-            if (prevScrollPos == 0) {
-                header.classList.add("shadow");
-            }
             let currentScrollPos = window.scrollY;
             if (prevScrollPos > currentScrollPos) {
-                header.classList.add("shadow");
+                if (currentScrollPos < 5) {
+                    header.classList.remove("shadow")
+                }
+                else {
+                    header.classList.add("shadow");
+                }
                 header.classList.remove("hide");
-            } else {
+            }
+            else if (!header.classList.contains("expand")) {
                 header.classList.remove("shadow");
                 header.classList.add("hide");
             }

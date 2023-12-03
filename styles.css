@@ -259,11 +259,11 @@ a {
 		visibility: hidden;
 		opacity: 0;
 		width: 100%;
-		left: -100%;
+		left: 0%;
 		margin: 2% 0%;
 		padding: 0px;
 		background-color: var(--bgColor);
-		transition: var(--hareTransition);
+		transition: var(--cheetahTransition);
 	}
 	.collapsable-nav li {
 		width: 100%;
@@ -274,17 +274,16 @@ a {
 		color: var(--textColor) !important;
 		border-top: solid var(--borderColor) 1px;
 	}
+	.collapsable-nav a {
+		margin-left: 0px;
+	}
 	.expand .collapsable-nav {
 		visibility: visible;
-		left: 0%;
 		opacity: 1;
 		box-shadow: var(--boxShadow);
 	}
 	.expand .collapsable-nav li:hover {
 		opacity: 0.4;
-	}
-	.expand .collapsable-nav a {
-		margin-left: 0px;
 	}
 }
 
