@@ -1,14 +1,21 @@
 :root {
-	--defaultBgColor: whitesmoke;
-	--defaultTextColor: black;
+	--bgColor: whitesmoke;
+	--textColor: black;
 	--borderColor: gainsboro;
+
+	--boxShadow: 0 6px 6px -6px gray;
 	--contentMargin: 0% 4% 4% 4%;
 	--navbarHeight: 40px;
+
+	--tortoiseTransition: all 0.5s;
+	--hareTransition: all 0.3s ease-in-out;
+	--cheetahTransition: all 0.15s ease-in-out;
+	--fadeInAnimation: fadeIn 1s;
 }
 body {
 	font-family: 'Poppins', sans-serif;
 	margin: 0px;
-	background-color: var(--defaultBgColor);
+	background-color: var(--bgColor);
 }
 h2 {
 	font-size: 25px;
@@ -22,13 +29,27 @@ h2 {
 }
 
 /* ------ HEADER ------ */
+#header {
+	transition: var(--tortoiseTransition);
+	position: sticky;
+	z-index: 100;
+	top: 0px;
+	width: 100vw;
+	background-color: var(--bgColor);
+	animation: var(--fadeInAnimation);
+}
+#header.shadow {
+	box-shadow: var(--boxShadow);
+}
+#header.hide {
+	top: -120px;
+}
 .navbar {
 	font-size: 18px;
 	list-style-type: none;
 	margin: 0px;
 	padding: 2% 4% 2% 4%;
 	box-sizing: border-box;
-	animation: fadeIn 1s;
 	display: block;
 }
 .navbar li:not(.menu-button) {
@@ -36,7 +57,7 @@ h2 {
 	height: var(--navbarHeight);
 	display: inline-block;
 	text-decoration: none;
-	color: var(--defaultTextColor);
+	color: var(--textColor);
 	box-sizing: content-box;
 }
 .menu-button {
@@ -49,9 +70,12 @@ h2 {
 	display: block;
 	width: 21px;
 	height: 2px;
-	transition: all 0.3s ease-in-out;
-	background-color: var(--defaultTextColor);
+	transition: var(--hareTransition);
+	background-color: var(--textColor);
 	margin: 5px auto;
+}
+.collapsable-nav {
+	transition: var(--hareTransition);
 }
 .collapsable-nav, .menu-button {
 	float: right;
@@ -77,6 +101,7 @@ li:not(#name, #selected-album-name, .menu-button):hover {
 	text-decoration: underline;
 	text-underline-offset: 5px;
 	z-index: -1;
+	transition: var(--hareTransition);
 }
 #instagram-button i {
 	font-size: 25px;
@@ -102,13 +127,13 @@ a {
 	object-fit: cover;
 	border-radius: 7px;
 	display: block;
-	transition: 0.3s all ease;
+	transition: var(--hareTransition);
 }
 .album-cover {
 	position: relative;
 	text-align: center;
-	color: var(--defaultTextColor);
-	animation: fadeIn 1s;
+	color: var(--textColor);
+	animation: var(--fadeInAnimation);
 	cursor: pointer;
 }
 .album-cover:hover img {
@@ -124,7 +149,7 @@ a {
 	width: 100%;
 	object-fit: cover;
 	display: block;
-	transition: 0.3s all ease;
+	transition: var(--hareTransition);
 	cursor: pointer;
 	border-radius: 5px;
 }
@@ -145,12 +170,12 @@ a {
 	top: 0;
 	left: 0;
 	background-color: rgba(0, 0, 0, 0.90);
-	color: var(--defaultBgColor);
-	z-index: 1;
+	color: var(--bgColor);
+	z-index: 1000;
 	overflow: auto;
 	opacity: 0;
 	pointer-events: none;
-	transition: opacity 0.15s ease-out, width 0s linear 0.15s, height 0s linear 0.15s;
+	transition: var(--cheetahTransition);
 }
 .modalContent {
 	height: 100%;
@@ -184,9 +209,6 @@ a {
 	opacity: 1;
 	pointer-events: all;
 }
-.modal.appear .modalImg, .modal.appear .modalText {
-	transition: opacity 0.15s ease-out;
-}
 
 /* ------ WIDE VIEW ------ */
 @media screen and (max-width: 1800px) {
@@ -214,26 +236,13 @@ a {
 
 /* ------ RESPONSIVE-NAV ------ */
 @media screen and (max-width: 1200px) {
+	.expand #selected-album-name {
+		color: var(--bgColor);
+		transition: var(--cheetahTransition);
+	}
 	.menu-button {
 		display: block;
-		animation: fadeIn 0.5s;
 		cursor: pointer;
-	}
-	.collapsable-nav {
-		display: none;
-	}
-	#selected-album-name {
-		transition: ease-in 0.3s;
-	}
-	#header.expand {
-		position: sticky;
-		top: 0px;
-		z-index: 100;
-		background-color: var(--defaultBgColor);
-	}
-	.expand #selected-album-name {
-		color: var(--defaultBgColor);
-		transition: ease-out 0.15s;
 	}
 	.expand .bar:nth-child(2) {
 		opacity: 0;
@@ -244,31 +253,40 @@ a {
 	.expand .bar:nth-child(3) {
 		transform: translateY(-7px) rotate(-225deg)
 	}
-	.expand .collapsable-nav {
+	#header.expand {
+		top: 0px !important;
+	}
+	.collapsable-nav {
+		opacity: 0;
+		visibility: hidden;
 		position: absolute;
 		display: block;
 		width: 100%;
-		left: 0px;
+		left: -100%;
 		margin: 2% 0%;
 		padding: 0px;
-		box-shadow: 0 6px 6px -6px var(--defaultTextColor);
-		background-color: var(--defaultBgColor);
+		background-color: var(--bgColor);
 	}
-	.expand .collapsable-nav li {
+	.collapsable-nav li {
 		border-top: solid var(--borderColor) 1px;
 		width: 100%;
 		left: 0px;
 		padding: 10px 0px;
 		text-align: center;
 		vertical-align: middle;
-		color: var(--defaultTextColor) !important;
+		color: var(--textColor) !important;
+	}
+	.expand .collapsable-nav {
+		box-shadow: var(--boxShadow);
+		visibility: visible;
+		left: 0%;
+		opacity: 1;
 	}
 	.expand .collapsable-nav li:hover {
 		opacity: 0.4;
-		transition: 0.05s;
 	}
 	.expand .collapsable-nav a {
-		margin: 0px;
+		margin-left: 0px;
 	}
 }
 

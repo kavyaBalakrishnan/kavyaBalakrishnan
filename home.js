@@ -16,6 +16,22 @@ $(function(){
         addEventListener('resize', function (e) {
             header.classList.remove("expand");
         });
+        
+        let prevScrollPos = window.scrollY;
+        window.onscroll = function() {
+            if (prevScrollPos == 0) {
+                header.classList.add("shadow");
+            }
+            let currentScrollPos = window.scrollY;
+            if (prevScrollPos > currentScrollPos) {
+                header.classList.add("shadow");
+                header.classList.remove("hide");
+            } else {
+                header.classList.remove("shadow");
+                header.classList.add("hide");
+            }
+            prevScrollPos = currentScrollPos;
+        }
     });
 });
 
