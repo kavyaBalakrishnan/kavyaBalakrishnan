@@ -2,6 +2,15 @@ $(function(){
     $("#header").load("header.html", function() {
         const menuButton = document.querySelector(".menu-button");
         const header = document.querySelector("#header");
+        const collapsableNav = document.querySelector(".collapsable-nav");
+        
+        function toggleAnimatingNav() {
+            document.body.clientWidth < 1200
+            ? collapsableNav.classList.add("animating")
+            : collapsableNav.classList.remove("animating");
+        };
+        
+        toggleAnimatingNav();
         
         menuButton.addEventListener("click", function() {
             header.classList.toggle("expand");
@@ -13,8 +22,9 @@ $(function(){
             }
         });
         
-        addEventListener('resize', function (e) {
+        addEventListener('resize', function () {
             header.classList.remove("expand");
+            toggleAnimatingNav();
         });
         
         // partially sticky header
@@ -22,12 +32,10 @@ $(function(){
         window.onscroll = function() {
             let currentScrollPos = window.scrollY;
             if (prevScrollPos > currentScrollPos) {
-                if (currentScrollPos < 5) {
-                    header.classList.remove("shadow")
-                }
-                else {
-                    header.classList.add("shadow");
-                }
+                currentScrollPos < 5
+                ? header.classList.remove("shadow")
+                : header.classList.add("shadow");
+                
                 header.classList.remove("hide");
             }
             else if (!header.classList.contains("expand")) {
