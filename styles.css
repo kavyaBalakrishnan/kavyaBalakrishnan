@@ -169,12 +169,15 @@ a {
 	width: 100%;
 	top: 0;
 	left: 0;
-	overflow: auto;
 	z-index: 1000;
 	pointer-events: none;
 	color: var(--bgColor);
 	background-color: rgba(0, 0, 0, 0.90);
 	transition: var(--cheetahTransition);
+    touch-action: none;
+    -webkit-overflow-scrolling: none;
+    overflow: hidden;
+    overscroll-behavior: none;
 }
 .modalContent {
 	display: flex;
