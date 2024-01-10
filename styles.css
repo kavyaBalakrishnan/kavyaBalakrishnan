@@ -185,16 +185,17 @@ a {
 	justify-content: center;
 	align-items: center;
 	height: 100%;
+	gap: 10px;
+	margin: auto;
+	box-sizing: border-box;
 }
 .modalImg {
-	margin-top: 20px;
 	max-width: 85%;
 	max-height: 90%;
 	border-radius: 5px;
 	image-rendering: crisp-edges;
 }
 .modalText {
-	margin-top: 10px;
 	font-size: 18px;
 }
 .close {
@@ -309,6 +310,7 @@ a {
 		width: 3%;
 	}
 	.modalImg {
+		max-height: 85%;
 		max-width: 95%;
 	}
 }
@@ -342,5 +344,10 @@ a {
 	}
 	#header.expand .collapsable-nav {
 		margin-top: 4%;
+	}
+	.close {
+		top: 5px;
+		right: 15px;
+		font-size: 30px;
 	}
 }
