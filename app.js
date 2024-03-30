@@ -5,7 +5,7 @@ const app = express();
 const port = 5050;
 
 const bucket = "kavya-photos"
-const bucketURL = `https://${bucket}.s3.amazonaws.com/`;
+const bucketURL = `https://${encodeURIComponent(bucket)}.s3.amazonaws.com/`;
 const apiVersion = "2006-03-01"
 
 app.use(express.static(__dirname + '/public'));
@@ -42,7 +42,8 @@ app.get('/aws-config/album-list', (req, res) => {
 })
 
 app.get('/aws-config/album-photos', (req, res) => {
-    s3.listObjects({Prefix: req.query.albumKey}, function (err, data) {
+    var albumKey = decodeURIComponent(req.query.albumKey)
+    s3.listObjects({Prefix: albumKey}, function (err, data) {
         res.json(data.Contents.filter(file => file.Size > 0))
     })
 })
