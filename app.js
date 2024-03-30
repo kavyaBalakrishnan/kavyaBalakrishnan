@@ -2,7 +2,7 @@ require('dotenv').config();
 const AWS = require("aws-sdk");
 const express = require("express");
 const app = express();
-const port = 5050;
+const port = process.env.PORT || 4000;
 
 const bucket = "kavya-photos"
 const bucketURL = `https://${encodeURIComponent(bucket)}.s3.amazonaws.com/`;
