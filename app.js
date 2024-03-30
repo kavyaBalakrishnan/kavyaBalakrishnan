@@ -9,7 +9,6 @@ const bucketURL = `https://${bucket}.s3.amazonaws.com/`;
 const apiVersion = "2006-03-01"
 
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/node_modules'));
 
 app.listen(port, () => {
     console.log(`Now listening on port ${port}`); 
