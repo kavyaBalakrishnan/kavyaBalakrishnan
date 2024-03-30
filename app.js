@@ -28,6 +28,10 @@ app.get('/', (req, res) => {
     res.sendFile('index.html', {root: __dirname + "/public/views"});
 });
 
+app.get('/gallery', (req, res) => {
+    res.sendFile('gallery.html', {root: __dirname + "/public/views"});
+});
+
 app.get('/aws-config/bucket-URL', (req, res) => {
     res.json(bucketURL)
 })
