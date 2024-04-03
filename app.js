@@ -10,7 +10,7 @@ const apiVersion = "2006-03-01"
 
 app.use(express.static(__dirname + '/public'));
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
     console.log(`Now listening on port ${port}`); 
 });
 
