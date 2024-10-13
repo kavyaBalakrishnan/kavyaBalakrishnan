@@ -90,12 +90,18 @@ function setupModals() {
     const modalText = document.querySelector(".modalText");
     const close = document.querySelector(".close");
 
+    let modalImages = [];
     gridImages.forEach((gridImage) => {
+        fetch('/aws-config/2x-photo-url?' + new URLSearchParams({ photoKey: gridImage.id }))
+            .then(response => response.json()).then(photoUrl => {
+                modalImages.push({ photoKey: gridImage.id, src: photoUrl });
+                // pre-cache modal images
+                let tempImg = new Image()
+                tempImg.src = photoUrl;
+            });
         gridImage.addEventListener("click", () => {
-            fetch('/aws-config/2x-photo-url?' + new URLSearchParams({ photoKey: gridImage.id }))
-                .then(response => response.json()).then(photoUrl => {
-                    modalImg.src = photoUrl;
-                });
+            const imageToPresent = modalImages.find((modalImage) => modalImage.photoKey == gridImage.id);
+            modalImg.src = imageToPresent.src
             modal.classList.add("appear");
 
             modal.addEventListener("click", () => {
