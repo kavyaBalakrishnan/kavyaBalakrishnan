@@ -12,12 +12,12 @@ $(function () {
                 var albumCoverKey = encodeURIComponent(album.name) + "/" + encodeURIComponent(album.coverImg);
 
                 fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: albumCoverKey }))
-                    .then(response => response.json()).then(albumCoverData => {
+                    .then(response => response.json()).then(albumCoverImageUrl => {
 
                         var element = document.createElement('div');
                         element.className = 'album-cover';
 
-                        elementStyling = "<img src=\"" + albumCoverData.url + "\"/>" + "<h2>" + album.name + "</h2>";
+                        elementStyling = "<img src=\"" + albumCoverImageUrl + "\"/>" + "<h2>" + album.name + "</h2>";
                         element.innerHTML = elementStyling;
 
                         $(element).appendTo("#albums");
@@ -43,8 +43,8 @@ $(function () {
                     var photos = [];
                     $.each(photosArr, function (i, photo) {
                         fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: photo.Key }))
-                            .then(response => response.json()).then(photoData => {
-                                photos.push({key: photo.Key, src: photoData.url});
+                            .then(response => response.json()).then(photoUrl => {
+                                photos.push({ key: photo.Key, src: photoUrl });
                             });
                     })
                     document.getElementById("albums").style.display = "none"
@@ -93,8 +93,8 @@ function setupModals() {
     gridImages.forEach((gridImage) => {
         gridImage.addEventListener("click", () => {
             fetch('/aws-config/2x-photo-url?' + new URLSearchParams({ photoKey: gridImage.id }))
-                .then(response => response.json()).then(photoData => {
-                    modalImg.src = photoData.url;
+                .then(response => response.json()).then(photoUrl => {
+                    modalImg.src = photoUrl;
                 });
             modal.classList.add("appear");
 
