@@ -1,12 +1,12 @@
 require('dotenv').config();
-const AWS = require("aws-sdk");
-const express = require("express");
+const AWS = require('aws-sdk');
+const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 
-const apiVersion = "2006-03-01"
 const originalPhotoBucket = 'kavya-pictures-originals'
 const thumbnailPhotoBucket = 'kavya-pictures-optimized'
+const apiVersion = '2006-03-01'
 
 app.use(express.static(__dirname + '/public'));
 
@@ -28,16 +28,16 @@ var s3_optimized = new AWS.S3({
 });
 
 app.get('/', (req, res) => {
-    res.sendFile('index.html', { root: __dirname + "/public/views" });
+    res.sendFile('index.html', { root: __dirname + '/public/views' });
 });
 
 app.get('/gallery', (req, res) => {
-    res.sendFile('gallery.html', { root: __dirname + "/public/views" });
+    res.sendFile('gallery.html', { root: __dirname + '/public/views' });
 });
 
 app.get('/aws-config/album-list', (req, res) => {
-        res.json(data.Body.toString("utf-8"))
     s3_originals.getObject({ Key: 'albums.json' }, function (err, data) {
+        res.json(data.Body.toString('utf-8'))
     })
 })
 
