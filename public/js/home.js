@@ -11,7 +11,7 @@ $(function () {
             $.each(list.albums, function (i, album) {
                 var albumCoverKey = encodeURIComponent(album.name) + "/" + encodeURIComponent(album.coverImg);
 
-                fetch('/aws-config/photo-url?' + new URLSearchParams({ photoKey: albumCoverKey }))
+                fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: albumCoverKey }))
                     .then(response => response.json()).then(albumCoverData => {
 
                         var element = document.createElement('div');
@@ -42,9 +42,9 @@ $(function () {
                 else {
                     var photos = [];
                     $.each(photosArr, function (i, photo) {
-                        fetch('/aws-config/photo-url?' + new URLSearchParams({ photoKey: photo.Key }))
+                        fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: photo.Key }))
                             .then(response => response.json()).then(photoData => {
-                                photos.push(photoData.url);
+                                photos.push({key: photo.Key, src: photoData.url});
                             });
                     })
                     document.getElementById("albums").style.display = "none"
@@ -64,16 +64,12 @@ function populatePhotoGrid(albumPhotos) {
     $.each(albumPhotos, function (i, photo) {
         var element = document.createElement('div');
         element.className = 'grid-item';
+        element.id = photo.key;
 
-        elementStyling = "<img src=\"" + photo + "\"/>"
+        elementStyling = "<img src=\"" + photo.src + "\"/>"
         element.innerHTML = elementStyling
 
         $(element).appendTo("#photo-grid")
-
-        // TODO: 03/30/24, remove photo descriptions
-        // element.addEventListener("click", function() {
-        //     document.querySelector(".modalText").innerHTML = photo.description
-        // });
     });
 };
 
@@ -88,18 +84,22 @@ function setupMasonry() {
 };
 
 function setupModals() {
-    const images = document.querySelectorAll(".grid img");
+    const gridImages = document.querySelectorAll(".grid-item");
     const modal = document.querySelector(".modal");
     const modalImg = document.querySelector(".modalImg");
     const modalText = document.querySelector(".modalText");
     const close = document.querySelector(".close");
 
-    images.forEach((image) => {
-        image.addEventListener("click", () => {
-            modalImg.src = image.src
+    gridImages.forEach((gridImage) => {
+        gridImage.addEventListener("click", () => {
+            fetch('/aws-config/2x-photo-url?' + new URLSearchParams({ photoKey: gridImage.id }))
+                .then(response => response.json()).then(photoData => {
+                    modalImg.src = photoData.url;
+                });
             modal.classList.add("appear");
 
             modal.addEventListener("click", () => {
+                modalImg.src = "";
                 modal.classList.remove("appear");
             });
 

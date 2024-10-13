@@ -4,8 +4,9 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 4000;
 
-const bucket = "kavya-pictures-originals"
 const apiVersion = "2006-03-01"
+const originalPhotoBucket = 'kavya-pictures-originals'
+const thumbnailPhotoBucket = 'kavya-pictures-optimized'
 
 app.use(express.static(__dirname + '/public'));
 
@@ -17,9 +18,13 @@ AWS.config.region = process.env.AWS_REGION;
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
     IdentityPoolId: process.env.AWS_IDENTITY_POOLID
 });
-var s3 = new AWS.S3({
+var s3_originals = new AWS.S3({
     apiVersion: apiVersion,
-    params: { Bucket: bucket },
+    params: { Bucket: originalPhotoBucket },
+});
+var s3_optimized = new AWS.S3({
+    apiVersion: apiVersion,
+    params: { Bucket: thumbnailPhotoBucket },
 });
 
 app.get('/', (req, res) => {
@@ -31,20 +36,36 @@ app.get('/gallery', (req, res) => {
 });
 
 app.get('/aws-config/album-list', (req, res) => {
-    s3.getObject({ Key: "albums.json" }, function (err, data) {
         res.json(data.Body.toString("utf-8"))
+    s3_originals.getObject({ Key: 'albums.json' }, function (err, data) {
     })
 })
 
-app.get('/aws-config/photo-url', async (req, res) => {
+app.get('/aws-config/1x-photo-url', async (req, res) => {
     var photoKey = decodeURIComponent(req.query.photoKey)
     const params = {
-        Bucket: bucket,
-        Key: photoKey,
+        Bucket: thumbnailPhotoBucket,
+        Key: '1x/' + photoKey,
         Expires: 60
     };
     try {
-        const url = await s3.getSignedUrlPromise('getObject', params);
+        const url = await s3_optimized.getSignedUrlPromise('getObject', params);
+        res.status(200).json({ url });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+})
+
+app.get('/aws-config/2x-photo-url', async (req, res) => {
+    var photoKey = decodeURIComponent(req.query.photoKey)
+    const params = {
+        Bucket: thumbnailPhotoBucket,
+        Key: '2x/' + photoKey,
+        Expires: 60
+    };
+    try {
+        const url = await s3_optimized.getSignedUrlPromise('getObject', params);
         res.status(200).json({ url });
     } catch (error) {
         console.error(error);
@@ -54,7 +75,7 @@ app.get('/aws-config/photo-url', async (req, res) => {
 
 app.get('/aws-config/album-photos', (req, res) => {
     var albumKey = decodeURIComponent(req.query.albumKey)
-    s3.listObjects({ Prefix: albumKey }, function (err, data) {
+    s3_originals.listObjects({ Prefix: albumKey }, function (err, data) {
         res.json(data.Contents.filter(file => file.Size > 0))
     })
 })
