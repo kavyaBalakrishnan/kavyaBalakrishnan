@@ -36,25 +36,31 @@ $(function () {
 
         fetch('/aws-config/album-photos?' + new URLSearchParams({ albumKey: selectedAlbumKey }))
             .then(response => response.json()).then(photosArr => {
-                if (photosArr.length === 0) {
+                if (photosArr.length == 0) {
                     window.location.href = "/";
                 }
                 else {
+                    document.getElementById("albums").style.display = "none"
                     var photos = [];
                     $.each(photosArr, function (i, photo) {
                         fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: photo.Key }))
                             .then(response => response.json()).then(photoUrl => {
                                 photos.push({ key: photo.Key, src: photoUrl });
+                                // wait for photos array to fully populate before setting up the photo grid
+                                if (photos.length == photosArr.length) {
+                                    setupPhotoGrid();
+                                }
                             });
                     })
-                    document.getElementById("albums").style.display = "none"
 
-                    $("#selectedAlbumView").load("views/grid.html", function () {
-                        document.getElementById("selected-album-name").innerText = selectedAlbum
-                        populatePhotoGrid(photos)
-                        setupMasonry()
-                        setupModals()
-                    });
+                    function setupPhotoGrid() {
+                        $("#selectedAlbumView").load("views/grid.html", function () {
+                            document.getElementById("selected-album-name").innerText = selectedAlbum
+                            populatePhotoGrid(photos)
+                            setupMasonry()
+                            setupModals()
+                        });
+                    };
                 }
             });
     }
