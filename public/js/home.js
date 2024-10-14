@@ -7,26 +7,34 @@ $(function () {
 
         fetch('/aws-config/album-list').then(response => response.json()).then(listObj => {
             list = JSON.parse(listObj);
+            var promises = [];
 
-            $.each(list.albums, function (i, album) {
-                var albumCoverKey = encodeURIComponent(album.name) + "/" + encodeURIComponent(album.coverImg);
+            $(async function () {
+                $.each(list.albums, function (i, album) {
+                    const albumCoverKey = encodeURIComponent(album.name) + "/" + encodeURIComponent(album.coverImg);
 
-                fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: albumCoverKey }))
-                    .then(response => response.json()).then(albumCoverImageUrl => {
+                    promises.push(
+                        fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: albumCoverKey }))
+                            .then(response => response.json())
+                            .then(albumCoverURL => ({ name: album.name, src: albumCoverURL }))
+                    )
+                });
 
-                        var element = document.createElement('div');
-                        element.className = 'album-cover';
+                // use promises to preserve album order
+                let albums = await Promise.all(promises);
+                albums.map(album => {
+                    let element = document.createElement('div');
+                    element.className = 'album-cover';
 
-                        elementStyling = "<img src=\"" + albumCoverImageUrl + "\"/>" + "<h2>" + album.name + "</h2>";
-                        element.innerHTML = elementStyling;
+                    element.innerHTML = "<img src=\"" + album.src + "\"/>" + "<h2>" + album.name + "</h2>";
 
-                        $(element).appendTo("#albums");
-
-                        element.addEventListener("click", function () {
-                            const newQuery = new URLSearchParams({ album: album.name })
-                            window.location.href = "/?" + newQuery
-                        });
+                    element.addEventListener("click", function () {
+                        const newQuery = new URLSearchParams({ album: album.name })
+                        window.location.href = "/?" + newQuery
                     });
+
+                    $(element).appendTo("#albums");
+                })
             });
         });
     }
@@ -41,26 +49,26 @@ $(function () {
                 }
                 else {
                     document.getElementById("albums").style.display = "none"
-                    var photos = [];
-                    $.each(photosArr, function (i, photo) {
-                        fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: photo.Key }))
-                            .then(response => response.json()).then(photoUrl => {
-                                photos.push({ key: photo.Key, src: photoUrl });
-                                // wait for photos array to fully populate before setting up the photo grid
-                                if (photos.length == photosArr.length) {
-                                    setupPhotoGrid();
-                                }
-                            });
-                    })
+                    var promises = [];
 
-                    function setupPhotoGrid() {
+                    $(async function () {
+                        $.each(photosArr, function (i, photo) {
+                            promises.push(
+                                fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: photo.Key }))
+                                    .then(response => response.json())
+                                    .then(photoURL => ({ key: photo.Key, src: photoURL }))
+                            )
+                        });
+                        // use promises to preserve order and ensure all photos are ready before populating grid
+                        let photos = await Promise.all(promises);
+
                         $("#selectedAlbumView").load("views/grid.html", function () {
                             document.getElementById("selected-album-name").innerText = selectedAlbum
                             populatePhotoGrid(photos)
                             setupMasonry()
                             setupModals()
                         });
-                    };
+                    });
                 }
             });
     }
