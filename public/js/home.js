@@ -7,7 +7,7 @@ $(function () {
 
         fetch('/aws-config/album-list').then(response => response.json()).then(listObj => {
             list = JSON.parse(listObj);
-            var promises = [];
+            let promises = [];
 
             $(async function () {
                 $.each(list.albums, function (i, album) {
@@ -40,7 +40,7 @@ $(function () {
     }
     else {
         // an album has been selected or user arrived directly to this url
-        var selectedAlbumKey = encodeURIComponent(selectedAlbum) + "/";
+        let selectedAlbumKey = encodeURIComponent(selectedAlbum) + "/";
 
         fetch('/aws-config/album-photos?' + new URLSearchParams({ albumKey: selectedAlbumKey }))
             .then(response => response.json()).then(photosArr => {
@@ -49,7 +49,7 @@ $(function () {
                 }
                 else {
                     document.getElementById("albums").style.display = "none"
-                    var promises = [];
+                    let promises = [];
 
                     $(async function () {
                         $.each(photosArr, function (i, photo) {
@@ -76,7 +76,7 @@ $(function () {
 
 function populatePhotoGrid(albumPhotos) {
     $.each(albumPhotos, function (i, photo) {
-        var element = document.createElement('div');
+        let element = document.createElement('div');
         element.className = 'grid-item';
         element.id = photo.key;
 
@@ -88,7 +88,7 @@ function populatePhotoGrid(albumPhotos) {
 };
 
 function setupMasonry() {
-    var $grid = $('.grid').masonry({
+    let $grid = $('.grid').masonry({
         itemSelector: '.grid-item',
         gutter: '.gutter-sizer'
     });
