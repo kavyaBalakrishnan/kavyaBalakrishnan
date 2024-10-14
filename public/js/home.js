@@ -7,53 +7,67 @@ $(function () {
 
         fetch('/aws-config/album-list').then(response => response.json()).then(listObj => {
             list = JSON.parse(listObj);
+            let promises = [];
 
-            $.each(list.albums, function (i, album) {
-                var albumCoverKey = encodeURIComponent(album.name) + "/" + encodeURIComponent(album.coverImg);
+            $(async function () {
+                $.each(list.albums, function (i, album) {
+                    const albumCoverKey = encodeURIComponent(album.name) + "/" + encodeURIComponent(album.coverImg);
 
-                fetch('/aws-config/photo-url?' + new URLSearchParams({ photoKey: albumCoverKey }))
-                    .then(response => response.json()).then(albumCoverData => {
+                    promises.push(
+                        fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: albumCoverKey }))
+                            .then(response => response.json())
+                            .then(albumCoverURL => ({ name: album.name, src: albumCoverURL }))
+                    )
+                });
 
-                        var element = document.createElement('div');
-                        element.className = 'album-cover';
+                // use promises to preserve album order
+                let albums = await Promise.all(promises);
+                albums.map(album => {
+                    let element = document.createElement('div');
+                    element.className = 'album-cover';
 
-                        elementStyling = "<img src=\"" + albumCoverData.url + "\"/>" + "<h2>" + album.name + "</h2>";
-                        element.innerHTML = elementStyling;
+                    element.innerHTML = "<img src=\"" + album.src + "\"/>" + "<h2>" + album.name + "</h2>";
 
-                        $(element).appendTo("#albums");
-
-                        element.addEventListener("click", function () {
-                            const newQuery = new URLSearchParams({ album: album.name })
-                            window.location.href = "/?" + newQuery
-                        });
+                    element.addEventListener("click", function () {
+                        const newQuery = new URLSearchParams({ album: album.name })
+                        window.location.href = "/?" + newQuery
                     });
+
+                    $(element).appendTo("#albums");
+                })
             });
         });
     }
     else {
         // an album has been selected or user arrived directly to this url
-        var selectedAlbumKey = encodeURIComponent(selectedAlbum) + "/";
+        let selectedAlbumKey = encodeURIComponent(selectedAlbum) + "/";
 
         fetch('/aws-config/album-photos?' + new URLSearchParams({ albumKey: selectedAlbumKey }))
             .then(response => response.json()).then(photosArr => {
-                if (photosArr.length === 0) {
+                if (photosArr.length == 0) {
                     window.location.href = "/";
                 }
                 else {
-                    var photos = [];
-                    $.each(photosArr, function (i, photo) {
-                        fetch('/aws-config/photo-url?' + new URLSearchParams({ photoKey: photo.Key }))
-                            .then(response => response.json()).then(photoData => {
-                                photos.push(photoData.url);
-                            });
-                    })
                     document.getElementById("albums").style.display = "none"
+                    let promises = [];
 
-                    $("#selectedAlbumView").load("views/grid.html", function () {
-                        document.getElementById("selected-album-name").innerText = selectedAlbum
-                        populatePhotoGrid(photos)
-                        setupMasonry()
-                        setupModals()
+                    $(async function () {
+                        $.each(photosArr, function (i, photo) {
+                            promises.push(
+                                fetch('/aws-config/1x-photo-url?' + new URLSearchParams({ photoKey: photo.Key }))
+                                    .then(response => response.json())
+                                    .then(photoURL => ({ key: photo.Key, src: photoURL }))
+                            )
+                        });
+                        // use promises to preserve order and ensure all photos are ready before populating grid
+                        let photos = await Promise.all(promises);
+
+                        $("#selectedAlbumView").load("views/grid.html", function () {
+                            document.getElementById("selected-album-name").innerText = selectedAlbum
+                            populatePhotoGrid(photos)
+                            setupMasonry()
+                            setupModals()
+                        });
                     });
                 }
             });
@@ -62,23 +76,19 @@ $(function () {
 
 function populatePhotoGrid(albumPhotos) {
     $.each(albumPhotos, function (i, photo) {
-        var element = document.createElement('div');
+        let element = document.createElement('div');
         element.className = 'grid-item';
+        element.id = photo.key;
 
-        elementStyling = "<img src=\"" + photo + "\"/>"
+        elementStyling = "<img src=\"" + photo.src + "\"/>"
         element.innerHTML = elementStyling
 
         $(element).appendTo("#photo-grid")
-
-        // TODO: 03/30/24, remove photo descriptions
-        // element.addEventListener("click", function() {
-        //     document.querySelector(".modalText").innerHTML = photo.description
-        // });
     });
 };
 
 function setupMasonry() {
-    var $grid = $('.grid').masonry({
+    let $grid = $('.grid').masonry({
         itemSelector: '.grid-item',
         gutter: '.gutter-sizer'
     });
@@ -88,18 +98,28 @@ function setupMasonry() {
 };
 
 function setupModals() {
-    const images = document.querySelectorAll(".grid img");
+    const gridImages = document.querySelectorAll(".grid-item");
     const modal = document.querySelector(".modal");
     const modalImg = document.querySelector(".modalImg");
     const modalText = document.querySelector(".modalText");
     const close = document.querySelector(".close");
 
-    images.forEach((image) => {
-        image.addEventListener("click", () => {
-            modalImg.src = image.src
+    let modalImages = [];
+    gridImages.forEach((gridImage) => {
+        fetch('/aws-config/2x-photo-url?' + new URLSearchParams({ photoKey: gridImage.id }))
+            .then(response => response.json()).then(photoUrl => {
+                modalImages.push({ photoKey: gridImage.id, src: photoUrl });
+                // pre-cache modal images
+                let tempImg = new Image()
+                tempImg.src = photoUrl;
+            });
+        gridImage.addEventListener("click", () => {
+            const imageToPresent = modalImages.find((modalImage) => modalImage.photoKey == gridImage.id);
+            modalImg.src = imageToPresent.src
             modal.classList.add("appear");
 
             modal.addEventListener("click", () => {
+                modalImg.src = "";
                 modal.classList.remove("appear");
             });
 
